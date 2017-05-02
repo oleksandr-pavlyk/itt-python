@@ -26,7 +26,7 @@ extension = Extension("itt",
         sources = ["itt/itt-python.c"])
 
 setup(name = 'itt',
-        version = '0.0.1',
+        version = '0.0.2',
         description = 'ITT API bindings for Python',
         ext_modules = [extension],
         cmdclass={'build_ext': build_ext})

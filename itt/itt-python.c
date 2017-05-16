@@ -22,19 +22,25 @@ PyMODINIT_FUNC PyInit_itt(void)
 
 static PyObject* itt_pause(PyObject* self, PyObject* args)
 {
+    Py_BEGIN_ALLOW_THREADS;
     __itt_pause();
+    Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 }
 
 static PyObject* itt_resume(PyObject* self, PyObject* args)
 {
+    Py_BEGIN_ALLOW_THREADS;
     __itt_resume();
+    Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 }
 
 static PyObject* itt_detach(PyObject* self, PyObject* args)
 {
+    Py_BEGIN_ALLOW_THREADS;
     __itt_detach();
+    Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 }
 
@@ -62,6 +68,7 @@ static PyObject* itt_task_begin(PyObject* self, PyObject* args)
 
     __itt_string_handle* handle = __itt_string_handle_create(name);
     __itt_domain* domain = (__itt_domain*)PyCapsule_GetPointer(capsule, "itt.domain");
+
     __itt_task_begin(domain, __itt_null, __itt_null, handle);
     Py_RETURN_NONE;
 

@@ -48,11 +48,14 @@ static PyObject* itt_domain_create(PyObject* self, PyObject* args)
 {
 
     const char* name; 
+    __itt_domain* domain;
 
     if(!PyArg_ParseTuple(args, "s", &name))
         return NULL;
 
-    __itt_domain* domain = __itt_domain_create(name);
+    Py_BEGIN_ALLOW_THREADS;
+    domain = __itt_domain_create(name);
+    Py_END_ALLOW_THREADS;
     return PyCapsule_New(domain, "itt.domain", NULL);
 
 }
@@ -66,10 +69,11 @@ static PyObject* itt_task_begin(PyObject* self, PyObject* args)
     if(!PyArg_ParseTuple(args, "Os", &capsule, &name))
         return NULL;
 
+    Py_BEGIN_ALLOW_THREADS;
     __itt_string_handle* handle = __itt_string_handle_create(name);
     __itt_domain* domain = (__itt_domain*)PyCapsule_GetPointer(capsule, "itt.domain");
-
     __itt_task_begin(domain, __itt_null, __itt_null, handle);
+    Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 
 }
@@ -82,8 +86,10 @@ static PyObject* itt_task_end(PyObject* self, PyObject* args)
     if(!PyArg_ParseTuple(args, "O", &capsule))
         return NULL;
 
+    Py_BEGIN_ALLOW_THREADS;
     __itt_domain* domain = (__itt_domain*)PyCapsule_GetPointer(capsule, "itt.domain");
     __itt_task_end(domain);
+    Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 
 }

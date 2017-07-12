@@ -10,15 +10,29 @@ static PyMethodDef itt_methods[] = {
     {NULL, NULL, 0, NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef itt_module =
 {
     PyModuleDef_HEAD_INIT, "itt", docstring, -1, itt_methods
 };
 
+#define INITERROR return NULL
+
 PyMODINIT_FUNC PyInit_itt(void)
 {
     return PyModule_Create(&itt_module);
 }
+
+#else
+
+#define INITERROR return
+
+void inititt(void)
+{
+    return Py_InitModule("itt", itt_methods);
+}
+
+#endif
 
 static PyObject* itt_pause(PyObject* self, PyObject* args)
 {

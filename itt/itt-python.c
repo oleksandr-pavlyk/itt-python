@@ -27,9 +27,9 @@ PyMODINIT_FUNC PyInit_itt(void)
 
 #define INITERROR return
 
-void inititt(void)
+PyAPI_FUNC(PyObject *) inititt(void)
 {
-    return Py_InitModule("itt", itt_methods);
+    return Py_InitModule3("itt", itt_methods, docstring);
 }
 
 #endif

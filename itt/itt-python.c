@@ -10,13 +10,14 @@ static PyMethodDef itt_methods[] = {
     {NULL, NULL, 0, NULL}
 };
 
+// Note for future modifications, please see this link for INITERROR defines
+// https://docs.python.org/3.3/howto/cporting.html#module-initialization-and-state
+
 #if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef itt_module =
 {
     PyModuleDef_HEAD_INIT, "itt", docstring, -1, itt_methods
 };
-
-#define INITERROR return NULL
 
 PyMODINIT_FUNC PyInit_itt(void)
 {
@@ -25,11 +26,9 @@ PyMODINIT_FUNC PyInit_itt(void)
 
 #else
 
-#define INITERROR return
-
-PyAPI_FUNC(PyObject *) inititt(void)
+void inititt(void)
 {
-    return Py_InitModule3("itt", itt_methods, docstring);
+    Py_InitModule3("itt", itt_methods, docstring);
 }
 
 #endif

@@ -42,18 +42,16 @@ To get the user task labels into your VTune timeline you need to add `enable-use
 
 ## Installation
 
-    python setup.py build_ext [--vtune=PATH_TO_VTUNE_ROOT]
+Provide the `build_ext` step with the path to the root VTune install directory.
+For instance,
+
+    python setup.py build_ext --vtune=$VTUNE_AMPLIFIER_XE_2018_DIR
     python setup.py install
 
-By default `setup.py` looks for a VTune installation directory at the environment variable
+The build assumes:
 
-    VTUNE_AMPLIFIER_XE_2017_DIR
-
-This is not likely to be useful everywhere, so the `--vtune` option can be used to specify the right path.
-We assume:
-
-    PATH_TO_VTUNE_ROOT/include
-    PATH_TO_VTUNE_ROOT/lib64/libittnotify.a
+    $VTUNE_AMPLIFIER_XE_2018_DIR/include
+    $VTUNE_AMPLIFIER_XE_2018_DIR/lib64/libittnotify.a
 
 ## Functions
 

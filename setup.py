@@ -11,7 +11,7 @@ class build_ext(_build_ext):
 
     def initialize_options(self):
         _build_ext.initialize_options(self) 
-        self.vtune = os.environ.get("VTUNE_AMPLIFIER_XE_2017_DIR")
+        self.vtune = None
 
     def finalize_options(self):
         _build_ext.finalize_options(self) 

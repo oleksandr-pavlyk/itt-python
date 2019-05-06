@@ -1,5 +1,6 @@
 from distutils.core import setup, Extension
 from distutils.command.build_ext import build_ext as _build_ext
+from distutils.command.install import install as _install
 
 import os
 
@@ -22,11 +23,18 @@ class build_ext(_build_ext):
             self.link_objects = list()
         self.link_objects.append(os.path.join(self.vtune, "lib64", "libittnotify.a"))
 
+class install(_install):
+
+    def initialize_options(self):
+        _install.initialize_options(self) 
+        self.skip_build = 1
+
 extension = Extension("itt", 
         sources = ["itt/itt-python.c"])
 
 setup(name = 'itt',
-        version = '0.0.3',
+        version = '0.0.4',
         description = 'ITT API bindings for Python',
         ext_modules = [extension],
-        cmdclass={'build_ext': build_ext})
+        cmdclass={'build_ext': build_ext,
+            'install': install})

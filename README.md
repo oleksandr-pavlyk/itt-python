@@ -90,6 +90,23 @@ _Not implemented._
 
 End a task instance on a thread.
 
+## ITT API for Anomaly Detection
+
+### itt\_pt\_region\_create(name)
+
+Create itt pt region with the given name `name`.
+URI naming style is recommended.
+No mechanism to destroy region (expected to be static over execution).
+Returns a region integer value
+
+### itt\_pt\_region\_begin(region)
+
+Create pt region instance instance on a thread.
+Becomes current pt region instance for that thread. 
+Call `itt_pt_region_end()` on same thread to end current pt region instance.
+
+### itt\_pt\_region\_end(region)
+
 ## References
 
 * [Intel Developer Zone page on the ITT Collection Control API](https://software.intel.com/en-us/node/544204)

@@ -4,6 +4,9 @@ from distutils.command.install import install as _install
 
 import os
 
+
+vtune = None
+
 class InstallCommand(_install):
     user_options = _install.user_options + [
         ('vtune=', None, 'specify VTune installation directory'),

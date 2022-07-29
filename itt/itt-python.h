@@ -25,6 +25,15 @@ static char task_begin_docstring[] =
 static char task_end_docstring[] =
     "FIXME";
 
+static char pt_region_create_docstring[] =
+    "FIXME";
+
+static char pt_task_begin_docstring[] =
+    "FIXME";
+
+static char pt_task_end_docstring[] =
+    "FIXME";
+
 static PyObject* itt_pause(PyObject* self, PyObject* args);
 
 static PyObject* itt_resume(PyObject* self, PyObject* args);
@@ -37,4 +46,9 @@ static PyObject* itt_task_begin(PyObject* self, PyObject* args);
 
 static PyObject* itt_task_end(PyObject* self, PyObject* args);
 
+static PyObject* itt_pt_region_create(PyObject* self, PyObject* args);
+
+static PyObject* itt_pt_region_begin(PyObject* self, PyObject* args);
+
+static PyObject* itt_pt_region_end(PyObject* self, PyObject* args);
 #endif

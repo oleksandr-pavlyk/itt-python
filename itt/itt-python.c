@@ -7,6 +7,9 @@ static PyMethodDef itt_methods[] = {
     {"domain_create", itt_domain_create , METH_VARARGS, domain_create_docstring},
     {"task_begin"   , itt_task_begin    , METH_VARARGS,    task_begin_docstring},
     {"task_end"     , itt_task_end      , METH_VARARGS,      task_end_docstring},
+    {"pt_region_create", itt_pt_region_create , METH_VARARGS, pt_region_create_docstring},
+    {"pt_region_begin"   , itt_pt_region_begin    , METH_VARARGS,    pt_task_begin_docstring},
+    {"pt_region_end"     , itt_pt_region_end      , METH_VARARGS,      pt_task_end_docstring},
     {NULL, NULL, 0, NULL}
 };
 
@@ -102,6 +105,52 @@ static PyObject* itt_task_end(PyObject* self, PyObject* args)
     Py_BEGIN_ALLOW_THREADS;
     __itt_domain* domain = (__itt_domain*)PyCapsule_GetPointer(capsule, "itt.domain");
     __itt_task_end(domain);
+    Py_END_ALLOW_THREADS;
+    Py_RETURN_NONE;
+
+}
+
+static PyObject* itt_pt_region_create(PyObject* self, PyObject* args)
+{
+
+    const char* name; 
+    __itt_pt_region region;
+
+    if(!PyArg_ParseTuple(args, "s", &name))
+        return NULL;
+
+    Py_BEGIN_ALLOW_THREADS;
+    region = __itt_pt_region_create(name);
+    Py_END_ALLOW_THREADS;
+    return Py_BuildValue("i", (unsigned char)region);
+}
+
+static PyObject* itt_pt_region_begin(PyObject* self, PyObject* args)
+{
+
+    int capsule;
+
+    if(!PyArg_ParseTuple(args, "i", &capsule))
+        return NULL;
+
+    Py_BEGIN_ALLOW_THREADS;
+    __itt_pt_region region = (__itt_pt_region)capsule;
+    __itt_mark_pt_region_begin(region);
+    Py_END_ALLOW_THREADS;
+    Py_RETURN_NONE;
+}
+
+static PyObject* itt_pt_region_end(PyObject* self, PyObject* args)
+{
+
+    int capsule;
+
+    if(!PyArg_ParseTuple(args, "i", &capsule))
+        return NULL;
+
+    Py_BEGIN_ALLOW_THREADS;
+    __itt_pt_region region = (__itt_pt_region)capsule;
+    __itt_mark_pt_region_end(region);
     Py_END_ALLOW_THREADS;
     Py_RETURN_NONE;
 

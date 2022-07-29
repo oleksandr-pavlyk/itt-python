@@ -45,13 +45,13 @@ To get the user task labels into your VTune timeline you need to add `enable-use
 Provide the `build_ext` step with the path to the root VTune install directory.
 For instance,
 
-    python setup.py build_ext --vtune=$VTUNE_AMPLIFIER_XE_2018_DIR
-    python setup.py install
+    python setup.py build_ext --vtune=$VTUNE_PROFILER_DIR
+    python setup.py install --vtune=$VTUNE_PROFILER_DIR
 
 The build assumes:
 
-    $VTUNE_AMPLIFIER_XE_2018_DIR/include
-    $VTUNE_AMPLIFIER_XE_2018_DIR/lib64/libittnotify.a
+    $VTUNE_PROFILER_DIR/include
+    $VTUNE_PROFILER_DIR/lib64/libittnotify.a
 
 ## Functions
 
@@ -89,6 +89,23 @@ _Not implemented._
 ### task\_end(domain)
 
 End a task instance on a thread.
+
+## ITT API for Anomaly Detection
+
+### itt\_pt\_region\_create(name)
+
+Create itt pt region with the given name `name`.
+URI naming style is recommended.
+No mechanism to destroy region (expected to be static over execution).
+Returns a region integer value
+
+### itt\_pt\_region\_begin(region)
+
+Create pt region instance instance on a thread.
+Becomes current pt region instance for that thread. 
+Call `itt_pt_region_end()` on same thread to end current pt region instance.
+
+### itt\_pt\_region\_end(region)
 
 ## References
 

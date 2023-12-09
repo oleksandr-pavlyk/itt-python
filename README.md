@@ -42,16 +42,26 @@ To get the user task labels into your VTune timeline you need to add `enable-use
 
 ## Installation
 
-Provide the `build_ext` step with the path to the root VTune install directory.
-For instance,
+This package leverages Intel(R) Instrumentation and Tracing Technology ([ITT](https://github.com/intel/ittapi)).
+This built-time dependency can be met by installing `ittapi` conda package, or by using ITT library
+vendored in the VTune installation.
 
-    python setup.py build_ext --vtune=$VTUNE_PROFILER_DIR
-    python setup.py install --vtune=$VTUNE_PROFILER_DIR
+Provide the `build_ext` step with the path to the root VTune install directory.
+For instance, on Linux:
+
+    export ITT_INCLUDE_DIR=$VTUNE_PROFILER_DIR/include
+    export ITT_LIBRARY_DIR=$VTUNE_PROFILE_DIR/lib64
+    python setup.py install
 
 The build assumes:
 
     $VTUNE_PROFILER_DIR/include
     $VTUNE_PROFILER_DIR/lib64/libittnotify.a
+
+If `ittapi` is installated in the build environment, e.g. `conda install conda-forge::ittapi`,
+the project can be built using simpler command:
+
+    python setup.py install
 
 ## Functions
 

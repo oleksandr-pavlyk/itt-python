@@ -1,56 +1,36 @@
-from distutils.core import setup, Extension
-from distutils.command.build_ext import build_ext as _build_ext
-from distutils.command.install import install as _install
+from setuptools import setup, Extension
 
 import os
+import sys
 
+kwargs = dict()
+itt_lib_dir = os.environ.get("ITT_LIB_DIR", None)
+if itt_lib_dir:
+    kwargs["library_dirs"] = [itt_lib_dir]
+else:
+    itt_lib_dir = os.environ.get("ITT_LIBRARY_DIR", None)
+    if itt_lib_dir:
+        kwargs["library_dirs"] = [itt_lib_dir]
+    elif sys.platform == "linux":
+        import sysconfig
+        itt_lib_dir = os.path.join(sysconfig.get_path("stdlib"), "..")
 
-vtune = None
+itt_include_dir = os.environ.get("ITT_INCLUDE_DIR", None)
+if itt_include_dir:
+    kwargs["include_dirs"] = [itt_include_dir]
 
-class InstallCommand(_install):
-    user_options = _install.user_options + [
-        ('vtune=', None, 'specify VTune installation directory'),
-        ]
+if sys.platform == "linux":
+    kwargs["extra_objects"] = [os.path.join(itt_lib_dir, "libittnotify.a")]
+else:
+    kwargs["extra_objects"] = ["ittnotify"]
 
-    def initialize_options(self):
-        _install.initialize_options(self)
-        self.vtune = None
-
-    def finalize_options(self):
-        _install.finalize_options(self)
-
-    def run(self):
-        global vtune
-        vtune = self.vtune
-        _install.run(self)  # OR: install.do_egg_install(self)
-
-
-class build_ext(_build_ext):
-
-    _build_ext.user_options += [
-        ('vtune=', None, 'specify VTune installation directory'),
-    ]
-
-    def initialize_options(self):
-        _build_ext.initialize_options(self) 
-        self.vtune = None
-
-    def finalize_options(self):
-        _build_ext.finalize_options(self) 
-        if vtune is not None:
-            self.vtune = vtune
-        assert self.vtune is not None, "Undefined VTune installation directory"
-        assert os.path.isdir(self.vtune), "VTune installation path not a directory"
-        self.include_dirs.append(os.path.join(self.vtune, "include"))
-        if self.link_objects is None:
-            self.link_objects = list()
-        self.link_objects.append(os.path.join(self.vtune, "lib64", "libittnotify.a"))
-
-extension = Extension("itt", 
-        sources = ["itt/itt-python.c"])
+extension = Extension(
+    "itt", 
+    sources = ["itt/itt-python.c"],
+    **kwargs
+)
 
 setup(name = 'itt',
         version = '0.0.4',
         description = 'ITT API bindings for Python',
-        ext_modules = [extension],
-        cmdclass={'build_ext': build_ext,  'install': InstallCommand})
+        ext_modules = [extension])

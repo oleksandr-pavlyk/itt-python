@@ -32,6 +32,6 @@ extension = Extension(
 )
 
 setup(name = 'itt',
-        version = '0.0.4',
+        version = '0.0.5',
         description = 'ITT API bindings for Python',
         ext_modules = [extension])

@@ -10,7 +10,7 @@ source:
 
 build:
     number: 0
-    skip: True  # [not linux]
+    skip: True  # [not (linux64 or win64)]
 
 requirements:
     build:

@@ -22,7 +22,8 @@ if itt_include_dir:
 if sys.platform == "linux":
     kwargs["extra_objects"] = [os.path.join(itt_lib_dir, "libittnotify.a")]
 else:
-    kwargs["extra_objects"] = ["ittnotify"]
+    kwargs["libraries"] = ["libittnotify"]
+
 
 extension = Extension(
     "itt", 

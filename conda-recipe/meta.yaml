@@ -1,0 +1,39 @@
+{% set name = "itt-python" %}
+{% set version = "0.0.4" %}
+
+package:
+    name: {{ name|lower }}
+    version: {{ version }}
+
+source:
+    path: ..
+
+build:
+    number: 0
+    skip: True  # [not (linux64 or win64)]
+
+requirements:
+    build:
+        - {{ compiler('c') }}
+    host:
+        - setuptools
+        - python
+        - ittapi
+    run:
+        - python
+
+test:
+    imports:
+        - itt
+    source_files:
+        - tests
+    commands:
+        - pytest -v tests
+    requires:
+        - pytest
+
+about:
+    home: https://github.com/NERSC/itt-python.git
+    license: BSD 3-Clause License
+    license_file: LICENSE
+    summary: 'Python bindings to instrumentation and tracing technology (ITT) APIs'

@@ -1,5 +1,5 @@
 {% set name = "itt-python" %}
-{% set version = "0.0.4" %}
+{% set version = "0.0.5" %}
 
 package:
     name: {{ name|lower }}
@@ -26,9 +26,9 @@ test:
     imports:
         - itt
     source_files:
-        - tests
+        - itt/tests
     commands:
-        - pytest -v tests
+        - pytest -v itt/tests
     requires:
         - pytest
 

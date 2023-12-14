@@ -1,8 +1,11 @@
 # itt-python
 
-Includes Python bindings to instrumentation and tracing technology (ITT) APIs for VTune.
+Includes Python bindings to instrumentation and tracing technology (ITT) APIs.
 
-Intel VTune Amplifier works great on Python code.
+The [ITT API](https://github.com/intel/ittapi) is used by Intel(R) VTune(TM) Profiler,
+permitting user to control tracing and instrumentation that it performs.
+
+Intel VTune Profiler works great on Python code.
 This package exposes some limited features of the ITT API in Python to help focus analysis.
 Right now it only has the collection and control API and some of the user task API.
 
@@ -124,7 +127,10 @@ Call `itt_pt_region_end()` on same thread to end current pt region instance.
 * [Intel Distribution for Python](https://software.intel.com/en-us/intel-distribution-for-python)
 * [ITT Task API Reference](https://software.intel.com/en-us/node/544206)
 
+
 ## Thanks
 
 * Sergey Maidanov and Vasilij Litvinov at Intel
-* Brian Friesen and Brandon Cook at NERSC
+* Rollin Thomas, Brian Friesen, and Brandon Cook at NERSC
+* Parent repo of this fork: https://github.com/NERSC/itt-python
+

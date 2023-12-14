@@ -26,12 +26,15 @@ else:
 
 
 extension = Extension(
-    "itt", 
-    sources = ["itt/itt-python.c"],
+    "itt._itt", 
+    sources = ["itt-src/itt-python.c"],
     **kwargs
 )
 
 setup(name = 'itt',
-        version = '0.0.5',
-        description = 'ITT API bindings for Python',
-        ext_modules = [extension])
+      version = '0.0.5',
+      description = 'ITT API bindings for Python',
+      ext_modules = [extension],
+      packages=["itt"],
+      package_data={"itt": ["tests/test_itt.py"]},
+)

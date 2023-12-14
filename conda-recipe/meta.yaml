@@ -26,9 +26,9 @@ test:
     imports:
         - itt
     source_files:
-        - tests
+        - itt/tests
     commands:
-        - pytest -v tests
+        - pytest -v itt/tests
     requires:
         - pytest
 

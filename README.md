@@ -127,6 +127,13 @@ Call `itt_pt_region_end()` on same thread to end current pt region instance.
 * [Intel Distribution for Python](https://software.intel.com/en-us/intel-distribution-for-python)
 * [ITT Task API Reference](https://software.intel.com/en-us/node/544206)
 
+## Related projects
+
+Intel(R) Instrumentation and Tracing API [project](https://github.com/intel/ittapi) now provides Python bindings
+in [pyitt](https://pypi.org/project/pyitt/) package available on PyPI. It provides `pyitt.compatibility_layers.itt_python`
+submodule which fully implements the public API of itt-python.
+
+Users of `itt` are advised to transition to using `pyitt`.
 
 ## Thanks
 

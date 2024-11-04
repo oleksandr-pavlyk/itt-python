@@ -53,7 +53,7 @@ Provide the `build_ext` step with the path to the root VTune install directory.
 For instance, on Linux:
 
     export ITT_INCLUDE_DIR=$VTUNE_PROFILER_DIR/include
-    export ITT_LIBRARY_DIR=$VTUNE_PROFILE_DIR/lib64
+    export ITT_LIBRARY_DIR=$VTUNE_PROFILER_DIR/lib64
     python setup.py install
 
 The build assumes:
